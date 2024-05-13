@@ -19,8 +19,12 @@ public class SecurityConfig {
         http
             .authorizeHttpRequests((requests) -> requests
                 .requestMatchers("/").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated())
                 .formLogin();
+
+        http.csrf().disable();
+        http.headers().frameOptions().disable();
 
         return http.build();
     }
